@@ -8,7 +8,7 @@ var orm = {
 			cb(result);
 		});
 	},
-	insertOne: function(table, ) {
+	insertOne: function(table) {
 
 	},
 	updateOne: function() {
