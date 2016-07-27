@@ -17,8 +17,25 @@ var orm = {
 		});
 	},
 	updateOne: function(table, queryCondition, cb) {
-		var queryString = 'UPDATE ' + table + ' SET devoured = true  WHERE ' + queryCondition + ';';
+		var queryString = 'UPDATE ' + table + ' SET devoured = true WHERE ' + queryCondition + ';';
 		console.log('update query string: ' + queryString);
+		connection.query(queryString, function(err, result) {
+			if (err) throw err;
+			cb(result);
+		});
+	},
+	replaceOne: function(table, queryCondition, cb) {
+		var queryString = 'UPDATE ' + table + ' SET devoured = false WHERE ' + queryCondition + ';';
+		console.log('replace query string: ' + queryString);
+		connection.query(queryString, function(err, result) {
+			if (err) throw err;
+			cb(result);
+		});
+
+	},
+	deleteOne: function(table, queryCondition, cb) {
+		var queryString = 'DELETE from ' + table + ' WHERE ' + queryCondition + ';';
+		console.log('delete query string: ' + queryString);
 		connection.query(queryString, function(err, result) {
 			if (err) throw err;
 			cb(result);

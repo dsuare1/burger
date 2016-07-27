@@ -32,3 +32,23 @@ var PORT = 8000;
 app.listen(PORT, function() {
 	console.log('Express server listening on PORT: ' + PORT);
 });
+
+// ********************************************************************************
+var Yelp = require('yelp');
+
+var yelp = new Yelp({
+  consumer_key: '8NSny5oze2kJA1bgDMiRsg',
+  consumer_secret: '6GUmVkstIFkHrWLfvGYJ8cZkPIM',
+  token: 'BSdlsBCoNtcnMX5viC21Cai0mkUOhMg1',
+  token_secret: '3lNLuPkzBIWoo6imW5Bl7xqN8Yc',
+});
+
+
+// See http://www.yelp.com/developers/documentation/v2/search_api
+// yelp.search({ term: 'burgers', location: 'Austin' })
+// .then(function (data) {
+//   console.log("yelp response: " + JSON.stringify(data, null, 2));
+// })
+// .catch(function (err) {
+//   console.error(err);
+// });
