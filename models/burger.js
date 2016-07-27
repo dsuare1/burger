@@ -14,15 +14,6 @@ var burger = {
 			cb(data);
 		});
 	},
-
-
-
-
-
-
-
-
-
 	insertOne: function (cols, vals, cb) {
 		orm.insertOne('burgers', cols, vals, function (data) {
 			cb(data);
