@@ -11,7 +11,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 tracker-col">
-      <h2 class="not-devoured-col-heading">These are the burgers you haven't yet devoured:</h2>
+      <h4 class="not-devoured-col-heading">These are the burgers you haven't yet devoured:</h4>
 
       <ul>
         {{#each burgers}}
@@ -29,7 +29,7 @@
         {{/each}}
       </ul>
     
-      <h2 class="devoured-col-heading">These are the burgers you have devoured:</h2>
+      <h4 class="devoured-col-heading">These are the burgers you have devoured:</h4>
 
       <ul>
         {{#each burgers}}
@@ -51,24 +51,8 @@
           {{/if}}
         {{/each}}
       </ul>
-    </div>
 
-    <div class="col-md-8 yelp-data">
-      <h2>Here's a list of 20 Austin restaurants (via &copy; Yelp) that serve hamburgers, with the highest rated at the top:</h2>
-      <ol>
-        {{#each yelp}}
-        <li>
-          {{this.name}}
-          <a href="{{this.url}}" target="_blank">{{this.url}}</a>
-        </li>
-        {{/each}}
-      </ol>
-    </div>
-  </div>
-
-  <div class="row add-burger-row">
-    <div class="col-md-8 offset-md-4 add-burger-section">
-      <h2 class="add-burger-col-header">Add your own burger; be as inventive as you like!</h2>
+      <h4 class="add-burger-col-header">Add your own burger;<br> be as inventive as you like!</h4>
 
       <form class="create-burger-form" action="burgers/create" method="POST">
 
@@ -85,6 +69,19 @@
 
         <button class="create-burger-button" type="submit">Add Burger</button>
       </form>
+</div>
+
+<h2 class="yelp-header">Here's a list of 20 Austin restaurants (via &copy; Yelp) that serve hamburgers, with the highest rated at the top:</h2>
+    <div class="col-md-8 yelp-data">
+      <ul>
+        {{#each yelp}}
+        <li>
+        <p class="yelp-entry-name">
+          {{this.name}}
+          </p>
+          <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+        </li>
+        {{/each}}
+      </ul>
     </div>
   </div>
-</div>
