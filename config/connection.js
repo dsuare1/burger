@@ -10,14 +10,14 @@ var source = {
 	},
 	livehost: {
 		port: 3306,
-		host: '',
-		user: '',
-		password: '',
-		database: ''
+		host: 'tviw6wn55xwxejwj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+		user: 'gvr29snxnvlht777',
+		password: 'lg5gf1vocqfxvznu',
+		database: 'hcqjy9cvlyt82l0x'
 	}
 }
 
-var connection = mysql.createConnection(source.localhost);
+var connection = mysql.createConnection(source.livehost);
 
 connection.connect(function(err) {
 	if (err) {
