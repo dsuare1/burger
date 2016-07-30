@@ -1,84 +1,61 @@
 var express = require('express');
-// var methodOverride = require('method-override');
-// var bodyParser = require('body-parser');
 
 var burger = require('../models/burger.js');
 
+var yelp = require('../public/assets/js/yelp.js');
+
 var router = express.Router();
 
-router.get('/', function (req, res) {
-	res.redirect('/burgers');
+router.get('/', function(req, res) {
+    res.redirect('/burgers');
 });
 
 router.get('/burgers', function(req, res) {
-	burger.selectAll(function(data) {
-		var hbsObj = { burgers: data };
-		res.render('index', hbsObj);
-	})
+    burger.selectAll(function(data) {
+        var hbsObj = { burgers: data };
+                                                        // sort: 2 here sorts Yelp results
+                                                        // by ranking, with highest at top
+        yelp.search({ term: 'burgers', location: 'Austin', sort: 2 }).then(function(yelpData) {
+            // append 'yelp' key to 'hbsObj' (handlebars Object) with stores from 'yelpData.businesses'
+            hbsObj.yelp = yelpData.businesses;
+            // 'hbsObj' sent to 'index.handlebars' (which comprises the <body> of 'main.handlebars')
+            //  and rendered there with handlebars syntax (  {{ burgers: data }}  and {{ yelp.data }})
+            //  using the key value pairs established here
+            res.render('index', hbsObj);
+        }).catch(function(err) {
+            console.error(err);
+        });
+    });
 });
 
 router.put('/burgers/update/:id', function(req, res) {
-	var queryCondition = 'id = ' + req.params.id;
+    var queryCondition = 'id = ' + req.params.id;
 
-	console.log('query condition: ', queryCondition);
-
-	burger.updateOne(queryCondition, function() {
-		res.redirect('/');
-	});
+    burger.updateOne(queryCondition, function() {
+        res.redirect('/');
+    });
 });
 
 router.put('/burgers/replace/:id', function(req, res) {
-	var queryCondition = 'id = ' + req.params.id;
+    var queryCondition = 'id = ' + req.params.id;
 
-	console.log(queryCondition);
-
-	burger.replaceOne(queryCondition, function() {
-		res.redirect('/');
-	});
+    burger.replaceOne(queryCondition, function() {
+        res.redirect('/');
+    });
 });
 
 router.delete('/burgers/delete/:id', function(req, res) {
-	var queryCondition = 'id = ' + req.params.id;
+    var queryCondition = 'id = ' + req.params.id;
 
-	console.log(queryCondition);
-
-	burger.deleteOne(queryCondition, function() {
-		res.redirect('/');
-	})
+    burger.deleteOne(queryCondition, function() {
+        res.redirect('/');
+    })
 })
 
 router.post('/burgers/create', function(req, res) {
-	burger.insertOne(['burger_name', 'devoured'], [req.body.burger_name, req.body.devoured], function() {
-		res.redirect('/');
-	});
+    burger.insertOne(['burger_name', 'devoured'], [req.body.burger_name, req.body.devoured], function() {
+        res.redirect('/');
+    });
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,6 @@
 var connection = require('../config/connection.js');
 
+// prints a question mark for each value being passed in inside the 'insertOne' method (more flexible)
 function printQuestionMarks(num) {
 	var arr = [];
 	for (var i = 0; i < num; i++) {
@@ -18,7 +19,6 @@ var orm = {
 	},
 	updateOne: function(table, queryCondition, cb) {
 		var queryString = 'UPDATE ' + table + ' SET devoured = true WHERE ' + queryCondition + ';';
-		console.log('update query string: ' + queryString);
 		connection.query(queryString, function(err, result) {
 			if (err) throw err;
 			cb(result);
@@ -26,7 +26,6 @@ var orm = {
 	},
 	replaceOne: function(table, queryCondition, cb) {
 		var queryString = 'UPDATE ' + table + ' SET devoured = false WHERE ' + queryCondition + ';';
-		console.log('replace query string: ' + queryString);
 		connection.query(queryString, function(err, result) {
 			if (err) throw err;
 			cb(result);
@@ -35,16 +34,15 @@ var orm = {
 	},
 	deleteOne: function(table, queryCondition, cb) {
 		var queryString = 'DELETE from ' + table + ' WHERE ' + queryCondition + ';';
-		console.log('delete query string: ' + queryString);
 		connection.query(queryString, function(err, result) {
 			if (err) throw err;
 			cb(result);
 		});
 	},
 	insertOne: function(table, cols, vals, cb) {
-		var queryString = 'INSERT INTO ' + table + ' (' + cols.toString() + ') VALUES (' + printQuestionMarks(vals.length) + ') ';
-		console.log('create query string: ' + queryString);
+		var queryString = 'INSERT INTO ' + table + ' (' + cols + ') VALUES (' + printQuestionMarks(vals.length) + ') ';
 		connection.query(queryString, vals, function(err, result) {
+			console.log("rob: " + queryString);
 			if (err) throw err;
 			cb(result);
 		});
